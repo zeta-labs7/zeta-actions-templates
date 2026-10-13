@@ -1,0 +1,17 @@
+name: Continous Integration
+
+on:
+  workflow_call:
+    inputs:
+      source-repo:
+        required: true
+        type: string
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check source repo
+        run: | 
+            echo "Validating source repo: ${{ inputs.source-repo }}"
+    

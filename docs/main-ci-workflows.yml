@@ -1,0 +1,40 @@
+name: Continous Integration
+
+on:
+  workflow_call:
+    inputs:
+      source-repo:
+        required: true
+        type: string
+      source-ref:
+        required: true
+        type: string
+      image-name:
+        required: true
+        type: string
+      push-image:
+        type: boolean
+        default: false
+
+jobs:
+  security:
+    uses: ./.github/workflows/security.yml
+    with:
+      source-repo: ${{ inputs.source-repo }}
+      source-ref: ${{ inputs.source-ref }}
+
+#   build:
+#     needs: security
+#     uses: ./.github/workflows/build.yml
+#     with:
+#       source-repo: ${{ inputs.source-repo }}
+#       source-ref: ${{ inputs.source-ref }}
+#       image-name: ${{ inputs.image-name }}
+
+#   push:
+#     needs: build
+#     if: ${{ inputs.push-image }}
+#     uses: ./.github/workflows/push.yml
+#     with:
+#       image-name: ${{ inputs.image-name }}
+#     secrets: inherit
